@@ -274,12 +274,15 @@ describe('Resource', () => {
 
   describe('update', () => {
     it('can update a record', () => {
+      const partialRecord = { id: '1', attributes: { key: 'value' } };
       const responseBody = { data: record };
       api.patch.mockResolvedValue({ data: responseBody });
 
-      const result = resource.update(record);
+      const result = resource.update(partialRecord);
 
-      expect(api.patch).toHaveBeenCalledWith('widgets/1', { data: record });
+      expect(api.patch).toHaveBeenCalledWith('widgets/1', {
+        data: { ...partialRecord, type: 'widgets' },
+      });
       return expect(result).resolves.toEqual(responseBody);
     });
 

@@ -74,8 +74,14 @@ class Resource {
     return this.api.get(url).then(extractData).catch(extractErrorResponse);
   }
 
-  create(partialRecord) {
-    const record = Object.assign({}, partialRecord, {type: this.name});
+  create({attributes, relationships}) {
+    const record = {type: this.name};
+    if (attributes) {
+      record.attributes = attributes;
+    }
+    if (relationships) {
+      record.relationships = relationships;
+    }
     const requestData = {data: record};
     return this.api
       .post(`${this.name}`, requestData)

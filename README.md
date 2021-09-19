@@ -1,6 +1,6 @@
 # @codingitwrong/jsonapi-client
 
-A lightweight client for making requests to a JSON:API service.
+A lightweight client for making requests to a [JSON:API](https://jsonapi.org/) service.
 
 - It doesn't attempt to provide a way to utilize every possible feature of JSON:API; instead, it offers a core set of functionality sufficient for most apps.
 - It doesn't attempt to abstract away the JSON:API object format; instead, it returns JSON:API data as-is.

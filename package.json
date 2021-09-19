@@ -9,7 +9,6 @@
   "scripts": {
     "test": "jest --watchAll",
     "lint": "eslint \"{src,test}/*.js\"",
-    "format": "prettier --write \"{src,test}/*.js\"",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },

@@ -116,20 +116,6 @@ resource
   .then(response => console.log(response.data));
 ```
 
-#### Options
-
-All read methods take an optional `options` property, consisting of an object of additional options to pass. Each key/value pair in the object is translated into a query string parameter key/value pair:
-
-```js
-resource.all({
-  options: {
-    include: 'comments',
-  },
-});
-
-// requests to widgets?include=comments
-```
-
 ### Writing
 
 #### create
@@ -168,6 +154,20 @@ Deletes the passed-in record. Only the `id` property is used, so you can pass ei
 
 ```js
 widgetResource.delete({ id: 42 });
+```
+
+### Options
+
+All methods that return records (so, all but `delete()`) take an optional `options` property, consisting of an object of additional options to pass. Each key/value pair in the object is translated into a query string parameter key/value pair:
+
+```js
+resource.all({
+  options: {
+    include: 'comments',
+  },
+});
+
+// requests to widgets?include=comments
 ```
 
 ## License

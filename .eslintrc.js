@@ -1,15 +1,13 @@
 module.exports = {
-  extends: [
-    'codingitwrong',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
   parser: 'babel-eslint',
-  plugins: [
-    'jest',
-  ],
+  plugins: ['jest', 'prettier'],
   env: {
-    'es6': true,
+    es6: true,
     'jest/globals': true,
-    'node': true,
+    node: true,
+  },
+  rules: {
+    'prettier/prettier': 'error',
   },
 };

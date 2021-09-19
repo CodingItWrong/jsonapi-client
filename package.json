@@ -1,9 +1,9 @@
 {
-  "name": "@reststate/client",
+  "name": "@codingitwrong/jsonapi-client",
   "version": "0.0.9",
   "description": "A vanilla JS client for JSON:API services",
   "main": "index.js",
-  "repository": "git@github.com:reststate/reststate-client.git",
+  "repository": "git@github.com:codingitwrong/jsonapi-client.git",
   "author": "Josh Justice <me@codingitwrong.com>",
   "license": "Apache-2.0",
   "scripts": {

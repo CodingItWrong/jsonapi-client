@@ -2,10 +2,10 @@
 
 ## all
 
-To retrieve all of the records for a resource, call the `all()` method. The method returns a promise that will resolve to the records:
+To retrieve all of the records for a resource, call the `all()` method. The method returns a promise that will resolve to the server's JSON response:
 
 ```javascript
-resource.all().then(widgets => console.log(widgets));
+resource.all().then(response => console.log(response.data));
 ```
 
 ## find
@@ -13,7 +13,7 @@ resource.all().then(widgets => console.log(widgets));
 To retrieve a single record by ID, call the `find()` method:
 
 ```javascript
-resource.find({ id: 42 }).then(widget => console.log(widget));
+resource.find({ id: 42 }).then(response => console.log(response.data));
 ```
 
 ## where
@@ -24,7 +24,7 @@ To filter/query for records based on certain criteria, use the `where` method, p
 const filter = {
   category: 'whizbang',
 };
-resource.where({ filter }).then(widgets => console.log(widgets));
+resource.where({ filter }).then(response => console.log(response.data));
 ```
 
 ## related
@@ -37,7 +37,7 @@ const parent = {
   id: 27,
 };
 
-resource.related({ parent }).then(widgets => console.log(widgets));
+resource.related({ parent }).then(response => console.log(response.data));
 ```
 
 By default, the name of the relationship on `parent` is assumed to be the same as the name of the other model: in this case, `widgets`. In cases where the names are not the same, you can explicitly pass the relationship name:
@@ -52,7 +52,7 @@ const relationship = 'purchased-widgets';
 
 resource
   .related({ parent, relationship })
-  .then(widgets => console.log(widgets));
+  .then(response => console.log(response.data));
 ```
 
 ## Options

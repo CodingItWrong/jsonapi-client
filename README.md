@@ -1,28 +1,22 @@
-# @reststate/client
+# @codingitwrong/jsonapi-client
 
-**This package is no longer maintained.**
-
-A lightweight client for making requests to a JSON:API service.
+A lightweight client for making requests to a [JSON:API](https://jsonapi.org/) service.
 
 - It doesn't attempt to provide a way to utilize every possible feature of JSON:API; instead, it offers a core set of functionality sufficient for most apps.
 - It doesn't attempt to abstract away the JSON:API object format; instead, it returns JSON:API data as-is.
 
-`@reststate/client` provides a simple Promise-based API suitable for just about any JavaScript application. It doesn't handle persistence, though; for that, wrappers are available for a variety of popular state stores:
-
-- [Vuex](https://github.com/CodingItWrong/vuex-jsonapi)
-- [MobX](https://github.com/CodingItWrong/mobx-jsonapi)
-- Coming soon: Redux
-
 ## Synopsis
 
 ```javascript
+import { ResourceClient } from '@codingitwrong/jsonapi-client';
+
 const resource = new ResourceClient({
   name: 'widgets',
   httpClient: axios.create(...),
 });
 
 resource.all()
-  .then(widgets => widgets);
+  .then(response => console.log(response.data));
 
 resource.create({
   attributes: {
@@ -34,14 +28,20 @@ resource.create({
 ## Installation
 
 ```sh
-$ npm install --save @reststate/client
+$ npm install --save @codingitwrong/jsonapi-client
 ```
 
-`@reststate/client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an `axios` instance configured with your server's base URL, the standard JSON:API content type, and optionally any authentication info your server requires.
+or
+
+```sh
+$ yarn add @codingitwrong/jsonapi-client
+```
+
+`@codingitwrong/jsonapi-client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an [`axios`](https://axios-http.com/) instance configured with your server's base URL, the standard JSON:API content type, and optionally any authentication info your server requires.
 
 ```js
 import axios from 'axios';
-import { ResourceClient } from '@reststate/client';
+import { ResourceClient } from '@codingitwrong/jsonapi-client';
 
 const token = "FILL_ME";
 

@@ -273,19 +273,36 @@ describe('Resource', () => {
   });
 
   describe('update', () => {
+    const id = '1';
+    const attributes = { key: 'value' };
+    const relationships = { key: 'value' };
+
     it('can update a record', () => {
-      const id = '1';
-      const attributes = { key: 'value' };
-      const relationships = { key: 'value' };
       const responseBody = { data: record };
       api.patch.mockResolvedValue({ data: responseBody });
 
       const result = resource.update({ id, attributes, relationships });
 
-      expect(api.patch).toHaveBeenCalledWith('widgets/1', {
+      expect(api.patch).toHaveBeenCalledWith('widgets/1?', {
         data: { id, type: 'widgets', attributes, relationships },
       });
       return expect(result).resolves.toEqual(responseBody);
+    });
+
+    it('passes options', () => {
+      const responseBody = { data: record };
+      api.patch.mockResolvedValue({ data: responseBody });
+
+      const result = resource.update({
+        id,
+        attributes,
+        relationships,
+        options: optionsWithInclude,
+      });
+
+      expect(api.patch).toHaveBeenCalledWith('widgets/1?include=comments', {
+        data: { id, type: 'widgets', attributes, relationships },
+      });
     });
 
     it('rejects with the response upon error', () => {

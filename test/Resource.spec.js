@@ -246,17 +246,19 @@ describe('Resource', () => {
 
   describe('create', () => {
     it('can create a record', () => {
-      const partialRecord = {attributes: {key: 'value'}};
+      const attributes = {key: 'value'};
+      const relationships = {key2: 'value2'};
 
       const responseBody = {data: record};
       api.post.mockResolvedValue({data: responseBody});
 
-      const result = resource.create(partialRecord);
+      const result = resource.create({attributes, relationships});
 
       expect(api.post).toHaveBeenCalledWith('widgets', {
         data: {
-          ...partialRecord,
           type: 'widgets',
+          attributes,
+          relationships,
         },
       });
       return expect(result).resolves.toEqual(responseBody);

@@ -22,16 +22,16 @@ describe('Resource', () => {
       patch: jest.fn(),
       delete: jest.fn(),
     };
-    resource = new Resource({ httpClient: api, name });
+    resource = new Resource({httpClient: api, name});
   });
 
   describe('all', () => {
     it('can retrieve all records', () => {
       const expectedResult = {
         data: records,
-        included: { fake: 'included' },
+        included: {fake: 'included'},
       };
-      api.get.mockResolvedValue({ data: expectedResult });
+      api.get.mockResolvedValue({data: expectedResult});
 
       const result = resource.all();
 
@@ -40,27 +40,27 @@ describe('Resource', () => {
     });
 
     it('can request included records', () => {
-      const expectedResult = { data: records };
-      api.get.mockResolvedValue({ data: expectedResult });
+      const expectedResult = {data: records};
+      api.get.mockResolvedValue({data: expectedResult});
 
-      resource.all({ options: optionsWithInclude });
+      resource.all({options: optionsWithInclude});
 
       expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
     });
 
     it('can request an arbitrary url', () => {
       const url = 'https://arbitrary.example.com/endpoint?key=value';
-      const expectedResult = { data: records };
-      api.get.mockResolvedValue({ data: expectedResult });
+      const expectedResult = {data: records};
+      api.get.mockResolvedValue({data: expectedResult});
 
-      resource.all({ options: { url } });
+      resource.all({options: {url}});
 
       expect(api.get).toHaveBeenCalledWith(url);
     });
 
     it('rejects with the response upon server error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.get.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.get.mockRejectedValue({response: errorResponse});
 
       const result = resource.all();
 
@@ -83,29 +83,29 @@ describe('Resource', () => {
 
   describe('find', () => {
     it('can find one record', () => {
-      const expectedResponse = { data: record };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: record};
+      api.get.mockResolvedValue({data: expectedResponse});
 
-      const result = resource.find({ id: 1 });
+      const result = resource.find({id: 1});
 
       expect(api.get).toHaveBeenCalledWith('widgets/1?');
       return expect(result).resolves.toEqual(expectedResponse);
     });
 
     it('can request included records', () => {
-      const expectedResponse = { data: record };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: record};
+      api.get.mockResolvedValue({data: expectedResponse});
 
-      resource.find({ id: 1, options: optionsWithInclude });
+      resource.find({id: 1, options: optionsWithInclude});
 
       expect(api.get).toHaveBeenCalledWith('widgets/1?include=comments');
     });
 
     it('rejects with the response upon error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.get.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.get.mockRejectedValue({response: errorResponse});
 
-      const result = resource.find({ id: 1 });
+      const result = resource.find({id: 1});
 
       return result.catch(error => {
         expect(error).toEqual(errorResponse);
@@ -119,20 +119,20 @@ describe('Resource', () => {
     };
 
     it('can find records by criteria', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
-      const result = resource.where({ filter });
+      const result = resource.where({filter});
 
       expect(api.get).toHaveBeenCalledWith('widgets?filter[status]=draft&');
       return expect(result).resolves.toEqual(expectedResponse);
     });
 
     it('can request included records', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
-      resource.where({ filter, options: optionsWithInclude });
+      resource.where({filter, options: optionsWithInclude});
 
       expect(api.get).toHaveBeenCalledWith(
         'widgets?filter[status]=draft&include=comments',
@@ -140,10 +140,10 @@ describe('Resource', () => {
     });
 
     it('rejects with the response upon error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.get.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.get.mockRejectedValue({response: errorResponse});
 
-      const result = resource.where({ filter });
+      const result = resource.where({filter});
 
       return result.catch(error => {
         expect(error).toEqual(errorResponse);
@@ -173,29 +173,29 @@ describe('Resource', () => {
     });
 
     it('can find related records', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
-      const result = resource.related({ parent });
+      const result = resource.related({parent});
 
       expect(api.get).toHaveBeenCalledWith('users/1/widgets?');
       return expect(result).resolves.toEqual(expectedResponse);
     });
 
     it('can find related records with a different relationship name', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
       const relationship = 'purchased-widgets';
-      const result = resource.related({ parent, relationship });
+      const result = resource.related({parent, relationship});
 
       expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
       return expect(result).resolves.toEqual(expectedResponse);
     });
 
     it('can find related link with a parent has relationships', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
       const relationship = 'purchased-widgets';
       const parent = parentWithRelationship(relationship);
@@ -211,8 +211,8 @@ describe('Resource', () => {
     });
 
     it('can use builtUrl if parent has relationships without links', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
       const relationship = 'purchased-widgets';
       resource.related({
@@ -224,19 +224,19 @@ describe('Resource', () => {
     });
 
     it('can request included records', () => {
-      const expectedResponse = { data: records };
-      api.get.mockResolvedValue({ data: expectedResponse });
+      const expectedResponse = {data: records};
+      api.get.mockResolvedValue({data: expectedResponse});
 
-      resource.related({ parent, options: optionsWithInclude });
+      resource.related({parent, options: optionsWithInclude});
 
       expect(api.get).toHaveBeenCalledWith('users/1/widgets?include=comments');
     });
 
     it('rejects with the response upon error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.get.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.get.mockRejectedValue({response: errorResponse});
 
-      const result = resource.related({ parent });
+      const result = resource.related({parent});
 
       return result.catch(error => {
         expect(error).toEqual(errorResponse);
@@ -246,10 +246,10 @@ describe('Resource', () => {
 
   describe('create', () => {
     it('can create a record', () => {
-      const partialRecord = { attributes: { key: 'value' } };
+      const partialRecord = {attributes: {key: 'value'}};
 
-      const responseBody = { data: record };
-      api.post.mockResolvedValue({ data: responseBody });
+      const responseBody = {data: record};
+      api.post.mockResolvedValue({data: responseBody});
 
       const result = resource.create(partialRecord);
 
@@ -263,8 +263,8 @@ describe('Resource', () => {
     });
 
     it('rejects with the response upon error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.post.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.post.mockRejectedValue({response: errorResponse});
 
       const result = resource.create(record);
 
@@ -276,24 +276,24 @@ describe('Resource', () => {
 
   describe('update', () => {
     const id = '1';
-    const attributes = { key: 'value' };
-    const relationships = { key: 'value' };
+    const attributes = {key: 'value'};
+    const relationships = {key: 'value'};
 
     it('can update a record', () => {
-      const responseBody = { data: record };
-      api.patch.mockResolvedValue({ data: responseBody });
+      const responseBody = {data: record};
+      api.patch.mockResolvedValue({data: responseBody});
 
-      const result = resource.update({ id, attributes, relationships });
+      const result = resource.update({id, attributes, relationships});
 
       expect(api.patch).toHaveBeenCalledWith('widgets/1?', {
-        data: { id, type: 'widgets', attributes, relationships },
+        data: {id, type: 'widgets', attributes, relationships},
       });
       return expect(result).resolves.toEqual(responseBody);
     });
 
     it('passes options', () => {
-      const responseBody = { data: record };
-      api.patch.mockResolvedValue({ data: responseBody });
+      const responseBody = {data: record};
+      api.patch.mockResolvedValue({data: responseBody});
 
       resource.update({
         id,
@@ -303,13 +303,13 @@ describe('Resource', () => {
       });
 
       expect(api.patch).toHaveBeenCalledWith('widgets/1?include=comments', {
-        data: { id, type: 'widgets', attributes, relationships },
+        data: {id, type: 'widgets', attributes, relationships},
       });
     });
 
     it('rejects with the response upon error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.patch.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.patch.mockRejectedValue({response: errorResponse});
 
       const result = resource.update(record);
 
@@ -330,8 +330,8 @@ describe('Resource', () => {
     });
 
     it('rejects with the response upon error', () => {
-      const errorResponse = { dummy: 'data' };
-      api.delete.mockRejectedValue({ response: errorResponse });
+      const errorResponse = {dummy: 'data'};
+      api.delete.mockRejectedValue({response: errorResponse});
 
       const result = resource.delete(record);
 

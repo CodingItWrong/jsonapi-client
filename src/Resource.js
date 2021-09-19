@@ -74,7 +74,7 @@ class Resource {
     return this.api.get(url).then(extractData).catch(extractErrorResponse);
   }
 
-  create({attributes, relationships}) {
+  create({attributes, relationships, options}) {
     const record = {type: this.name};
     if (attributes) {
       record.attributes = attributes;
@@ -84,7 +84,7 @@ class Resource {
     }
     const requestData = {data: record};
     return this.api
-      .post(`${this.name}`, requestData)
+      .post(`${this.name}?${getOptionsQuery(options)}`, requestData)
       .then(extractData)
       .catch(extractErrorResponse);
   }

@@ -245,16 +245,16 @@ describe('Resource', () => {
   });
 
   describe('create', () => {
-    it('can create a record', () => {
-      const attributes = {key: 'value'};
-      const relationships = {key2: 'value2'};
+    const attributes = {key: 'value'};
+    const relationships = {key2: 'value2'};
 
+    it('can create a record', () => {
       const responseBody = {data: record};
       api.post.mockResolvedValue({data: responseBody});
 
       const result = resource.create({attributes, relationships});
 
-      expect(api.post).toHaveBeenCalledWith('widgets', {
+      expect(api.post).toHaveBeenCalledWith('widgets?', {
         data: {
           type: 'widgets',
           attributes,
@@ -262,6 +262,21 @@ describe('Resource', () => {
         },
       });
       return expect(result).resolves.toEqual(responseBody);
+    });
+
+    it('passes options', () => {
+      const responseBody = {data: record};
+      api.post.mockResolvedValue({data: responseBody});
+
+      resource.create({
+        attributes,
+        relationships,
+        options: optionsWithInclude,
+      });
+
+      expect(api.post).toHaveBeenCalledWith('widgets?include=comments', {
+        data: {type: 'widgets', attributes, relationships},
+      });
     });
 
     it('rejects with the response upon error', () => {

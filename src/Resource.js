@@ -83,8 +83,9 @@ class Resource {
       .catch(extractErrorResponse);
   }
 
-  update(record) {
+  update(partialRecord) {
     // http://jsonapi.org/faq/#wheres-put
+    const record = Object.assign({}, partialRecord, { type: this.name });
     const requestData = { data: record };
     return this.api
       .patch(`${this.name}/${record.id}`, requestData)

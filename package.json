@@ -1,6 +1,6 @@
 {
   "name": "@codingitwrong/jsonapi-client",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A vanilla JS client for JSON:API services",
   "main": "index.js",
   "repository": "git@github.com:codingitwrong/jsonapi-client.git",

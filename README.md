@@ -31,6 +31,12 @@ resource.create({
 $ npm install --save @codingitwrong/jsonapi-client
 ```
 
+or
+
+```sh
+$ yarn add @codingitwrong/jsonapi-client
+```
+
 `@codingitwrong/jsonapi-client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an `axios` instance configured with your server's base URL, the standard JSON:API content type, and optionally any authentication info your server requires.
 
 ```js

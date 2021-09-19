@@ -43,7 +43,7 @@ describe('Resource', () => {
       const expectedResult = { data: records };
       api.get.mockResolvedValue({ data: expectedResult });
 
-      const result = resource.all({ options: optionsWithInclude });
+      resource.all({ options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
     });
@@ -53,7 +53,7 @@ describe('Resource', () => {
       const expectedResult = { data: records };
       api.get.mockResolvedValue({ data: expectedResult });
 
-      const result = resource.all({ options: { url } });
+      resource.all({ options: { url } });
 
       expect(api.get).toHaveBeenCalledWith(url);
     });
@@ -96,7 +96,7 @@ describe('Resource', () => {
       const expectedResponse = { data: record };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.find({ id: 1, options: optionsWithInclude });
+      resource.find({ id: 1, options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith('widgets/1?include=comments');
     });
@@ -132,7 +132,7 @@ describe('Resource', () => {
       const expectedResponse = { data: records };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.where({ filter, options: optionsWithInclude });
+      resource.where({ filter, options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith(
         'widgets?filter[status]=draft&include=comments',
@@ -215,17 +215,19 @@ describe('Resource', () => {
       api.get.mockResolvedValue({ data: expectedResponse });
 
       const relationship = 'purchased-widgets';
-      const result = resource.related({
+      resource.related({
         parent: parentWithRelationship(relationship),
         relationship,
       });
+
+      // TODO: probably need an expectation here
     });
 
     it('can request included records', () => {
       const expectedResponse = { data: records };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.related({ parent, options: optionsWithInclude });
+      resource.related({ parent, options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith('users/1/widgets?include=comments');
     });
@@ -293,7 +295,7 @@ describe('Resource', () => {
       const responseBody = { data: record };
       api.patch.mockResolvedValue({ data: responseBody });
 
-      const result = resource.update({
+      resource.update({
         id,
         attributes,
         relationships,

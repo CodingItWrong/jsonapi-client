@@ -16,7 +16,7 @@ const resource = new ResourceClient({
 });
 
 resource.all()
-  .then(widgets => widgets);
+  .then(response => console.log(response.data));
 
 resource.create({
   attributes: {

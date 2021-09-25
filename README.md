@@ -43,7 +43,7 @@ $ yarn add @codingitwrong/jsonapi-client
 import axios from 'axios';
 import {ResourceClient} from '@codingitwrong/jsonapi-client';
 
-const token = "FILL_ME";
+const token = 'FILL_ME';
 
 const httpClient = axios.create({
   baseURL: 'https://jsonapi-sandbox.herokuapp.com',

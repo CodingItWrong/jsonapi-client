@@ -37,7 +37,7 @@ or
 $ yarn add @codingitwrong/jsonapi-client
 ```
 
-`@codingitwrong/jsonapi-client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an [`axios`](https://axios-http.com/) instance configured with your server's base URL, the standard JSON:API content type, and optionally any authentication info your server requires.
+`@codingitwrong/jsonapi-client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an [`axios`](https://axios-http.com/) instance configured with your server's base URL and optionally any authentication info your server requires.
 
 ```js
 import axios from 'axios';

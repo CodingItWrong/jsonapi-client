@@ -8,7 +8,7 @@ A lightweight client for making requests to a [JSON:API](https://jsonapi.org/) s
 ## Synopsis
 
 ```javascript
-import { ResourceClient } from '@codingitwrong/jsonapi-client';
+import {ResourceClient} from '@codingitwrong/jsonapi-client';
 
 const resource = new ResourceClient({
   name: 'widgets',
@@ -41,9 +41,9 @@ $ yarn add @codingitwrong/jsonapi-client
 
 ```js
 import axios from 'axios';
-import { ResourceClient } from '@codingitwrong/jsonapi-client';
+import {ResourceClient} from '@codingitwrong/jsonapi-client';
 
-const token = "FILL_ME";
+const token = 'FILL_ME';
 
 const httpClient = axios.create({
   baseURL: 'https://jsonapi-sandbox.herokuapp.com',
@@ -52,7 +52,7 @@ const httpClient = axios.create({
     'Authentication': `Bearer ${token}`,
   },
 });
-const client = new ResourceClient({ name: 'widgets', httpClient });
+const client = new ResourceClient({name: 'widgets', httpClient});
 
 client.all().then(results => console.log(results));
 ```
@@ -74,7 +74,7 @@ resource.all().then(response => console.log(response.data));
 To retrieve a single record by ID, call the `find()` method:
 
 ```javascript
-resource.find({ id: 42 }).then(response => console.log(response.data));
+resource.find({id: 42}).then(response => console.log(response.data));
 ```
 
 #### where
@@ -85,7 +85,7 @@ To filter/query for records based on certain criteria, use the `where` method, p
 const filter = {
   category: 'whizbang',
 };
-resource.where({ filter }).then(response => console.log(response.data));
+resource.where({filter}).then(response => console.log(response.data));
 ```
 
 #### related
@@ -98,7 +98,7 @@ const parent = {
   id: 27,
 };
 
-resource.related({ parent }).then(response => console.log(response.data));
+resource.related({parent}).then(response => console.log(response.data));
 ```
 
 By default, the name of the relationship on `parent` is assumed to be the same as the name of the other model: in this case, `widgets`. In cases where the names are not the same, you can explicitly pass the relationship name:
@@ -112,7 +112,7 @@ const parent = {
 const relationship = 'purchased-widgets';
 
 resource
-  .related({ parent, relationship })
+  .related({parent, relationship})
   .then(response => console.log(response.data));
 ```
 
@@ -153,7 +153,7 @@ This isn't just limited to `attributes`; `relationships` can be passed in too.
 Deletes the passed-in record. Only the `id` property is used, so you can pass either a full record or just the ID:
 
 ```js
-widgetResource.delete({ id: 42 });
+widgetResource.delete({id: 42});
 ```
 
 ### Options

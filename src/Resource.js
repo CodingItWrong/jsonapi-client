@@ -113,4 +113,4 @@ class Resource {
   }
 }
 
-export default Resource;
+module.exports = Resource;

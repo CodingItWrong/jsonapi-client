@@ -1,4 +1,4 @@
-import Resource from '../src/Resource';
+const Resource = require('../src/Resource');
 
 describe('Resource', () => {
   const name = 'widgets';

@@ -1,3 +1,3 @@
-import ResourceClient from './src/Resource';
+const ResourceClient = require('./src/Resource');
 
-export { ResourceClient };
+module.exports = {ResourceClient};

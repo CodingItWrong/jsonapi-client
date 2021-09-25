@@ -1,6 +1,6 @@
-const Resource = require('../src/Resource');
+const ResourceClient = require('../src/ResourceClient');
 
-describe('Resource', () => {
+describe('ResourceClient', () => {
   const name = 'widgets';
   let api;
   let resource;
@@ -22,7 +22,7 @@ describe('Resource', () => {
       patch: jest.fn(),
       delete: jest.fn(),
     };
-    resource = new Resource({httpClient: api, name});
+    resource = new ResourceClient({httpClient: api, name});
   });
 
   describe('all', () => {
@@ -135,7 +135,7 @@ describe('Resource', () => {
       resource.where({filter, options: optionsWithInclude});
 
       expect(api.get).toHaveBeenCalledWith(
-        'widgets?filter[status]=draft&include=comments',
+        'widgets?filter[status]=draft&include=comments'
       );
     });
 

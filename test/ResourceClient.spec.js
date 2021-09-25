@@ -1,6 +1,10 @@
 const ResourceClient = require('../src/ResourceClient');
 
 describe('ResourceClient', () => {
+  const contentTypeHeaders = {
+    headers: {'Content-Type': 'application/vnd.api+json'},
+  };
+
   const name = 'widgets';
   let api;
   let resource;
@@ -254,13 +258,17 @@ describe('ResourceClient', () => {
 
       const result = resource.create({attributes, relationships});
 
-      expect(api.post).toHaveBeenCalledWith('widgets?', {
-        data: {
-          type: 'widgets',
-          attributes,
-          relationships,
+      expect(api.post).toHaveBeenCalledWith(
+        'widgets?',
+        {
+          data: {
+            type: 'widgets',
+            attributes,
+            relationships,
+          },
         },
-      });
+        contentTypeHeaders,
+      );
       return expect(result).resolves.toEqual(responseBody);
     });
 
@@ -274,9 +282,13 @@ describe('ResourceClient', () => {
         options: optionsWithInclude,
       });
 
-      expect(api.post).toHaveBeenCalledWith('widgets?include=comments', {
-        data: {type: 'widgets', attributes, relationships},
-      });
+      expect(api.post).toHaveBeenCalledWith(
+        'widgets?include=comments',
+        {
+          data: {type: 'widgets', attributes, relationships},
+        },
+        contentTypeHeaders,
+      );
     });
 
     it('rejects with the response upon error', () => {
@@ -302,9 +314,13 @@ describe('ResourceClient', () => {
 
       const result = resource.update({id, attributes, relationships});
 
-      expect(api.patch).toHaveBeenCalledWith('widgets/1?', {
-        data: {id, type: 'widgets', attributes, relationships},
-      });
+      expect(api.patch).toHaveBeenCalledWith(
+        'widgets/1?',
+        {
+          data: {id, type: 'widgets', attributes, relationships},
+        },
+        contentTypeHeaders,
+      );
       return expect(result).resolves.toEqual(responseBody);
     });
 
@@ -319,9 +335,13 @@ describe('ResourceClient', () => {
         options: optionsWithInclude,
       });
 
-      expect(api.patch).toHaveBeenCalledWith('widgets/1?include=comments', {
-        data: {id, type: 'widgets', attributes, relationships},
-      });
+      expect(api.patch).toHaveBeenCalledWith(
+        'widgets/1?include=comments',
+        {
+          data: {id, type: 'widgets', attributes, relationships},
+        },
+        contentTypeHeaders,
+      );
     });
 
     it('rejects with the response upon error', () => {

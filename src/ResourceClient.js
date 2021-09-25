@@ -1,3 +1,7 @@
+const contentTypeHeaders = {
+  headers: {'Content-Type': 'application/vnd.api+json'},
+};
+
 function filterQueryString(obj) {
   return Object.keys(obj)
     .map(k => `filter[${k}]=${encodeURIComponent(obj[k])}`)
@@ -84,7 +88,11 @@ class Resource {
     }
     const requestData = {data: record};
     return this.api
-      .post(`${this.name}?${getOptionsQuery(options)}`, requestData)
+      .post(
+        `${this.name}?${getOptionsQuery(options)}`,
+        requestData,
+        contentTypeHeaders,
+      )
       .then(extractData)
       .catch(extractErrorResponse);
   }
@@ -103,6 +111,7 @@ class Resource {
       .patch(
         `${this.name}/${record.id}?${getOptionsQuery(options)}`,
         requestData,
+        contentTypeHeaders,
       )
       .then(extractData)
       .catch(extractErrorResponse);

@@ -135,7 +135,7 @@ describe('ResourceClient', () => {
       resource.where({filter, options: optionsWithInclude});
 
       expect(api.get).toHaveBeenCalledWith(
-        'widgets?filter[status]=draft&include=comments'
+        'widgets?filter[status]=draft&include=comments',
       );
     });
 

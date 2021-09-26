@@ -47,9 +47,7 @@ const token = 'FILL_ME';
 
 const httpClient = axios.create({
   baseURL: 'https://jsonapi-sandbox.herokuapp.com',
-  headers: {
-    'Authentication': `Bearer ${token}`,
-  },
+  headers: {'Authentication': `Bearer ${token}`},
 });
 const widgetClient = new ResourceClient({name: 'widgets', httpClient});
 

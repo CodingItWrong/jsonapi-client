@@ -4,7 +4,7 @@ on: [push]
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 

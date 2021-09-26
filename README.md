@@ -93,6 +93,8 @@ To retrieve a single record by ID, call the `find()` method:
 ```javascript
 resourceClient.find({id: 42})
   .then(response => console.log(response.data));
+
+// requests to widgets/42
 ```
 
 #### where({filter, [options]})
@@ -154,6 +156,8 @@ widgetResource.create({
     'creation-date': '2018-10-07',
   },
 });
+
+// POSTs to widgets
 ```
 
 #### update({id, [attributes, relationships, options]})
@@ -167,6 +171,8 @@ widgetResource.update({
     name: 'My Updated Widget',
   },
 });
+
+// PATCHes to widgets/42
 ```
 
 #### delete({id})
@@ -175,6 +181,8 @@ Deletes the passed-in record. Only the `id` property is used, so you can pass ei
 
 ```js
 widgetResource.delete({id: 42});
+
+// DELETEs to widgets/42
 ```
 
 ## License

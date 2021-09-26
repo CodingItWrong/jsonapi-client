@@ -10,15 +10,15 @@ A lightweight client for making requests to a [JSON:API](https://jsonapi.org/) s
 ```javascript
 import {ResourceClient} from '@codingitwrong/jsonapi-client';
 
-const resource = new ResourceClient({
+const widgetClient = new ResourceClient({
   name: 'widgets',
   httpClient: axios.create(...),
 });
 
-resource.all()
+widgetClient.all()
   .then(response => console.log(response.data));
 
-resource.create({
+widgetClient.create({
   attributes: {
     title: 'My Widget',
   },
@@ -51,32 +51,53 @@ const httpClient = axios.create({
     'Authentication': `Bearer ${token}`,
   },
 });
-const client = new ResourceClient({name: 'widgets', httpClient});
+const widgetClient = new ResourceClient({name: 'widgets', httpClient});
 
-client.all().then(results => console.log(results));
+widgetClient.all()
+  .then(response => console.log(response.data));
 ```
 
 ## Usage
 
 ### Reading Data
 
-#### all
+#### all([{options}])
 
-To retrieve all of the records for a resource, call the `all()` method. The method returns a promise that will resolve to the server's JSON response:
+To retrieve all of the records for a resource, call the `all()` method. The method returns a promise that will resolve to the [JSON:API document](https://jsonapi.org/format/#document-structure) the server responded with:
 
 ```javascript
-resource.all().then(response => console.log(response.data));
+resourceClient.all()
+  .then(response => console.log(response.data));
 ```
 
-#### find
+Note that because the `response` is the full JSON:API document, the array of records is nested under the `data` key. This ensures you also have access to keys like `errors`, `meta`, and `included` when applicable.
+
+#### Options
+
+All methods that return records (so, all but `delete()`) take an optional `options` named argument, consisting of an object of additional options to pass. Each key/value pair in the object is translated into a query string parameter key/value pair:
+
+```js
+resourceClient.all({
+  options: {
+    include: 'comments',
+    sort: '-createdAt',
+    'page[number]': 1,
+  },
+});
+
+// requests to widgets?include=comments&sort=-createdAt&page[number]=1
+```
+
+#### find({id, [options]})
 
 To retrieve a single record by ID, call the `find()` method:
 
 ```javascript
-resource.find({id: 42}).then(response => console.log(response.data));
+resourceClient.find({id: 42})
+  .then(response => console.log(response.data));
 ```
 
-#### where
+#### where({filter, [options]})
 
 To filter/query for records based on certain criteria, use the `where` method, passing it an object of filter keys and values to send to the server:
 
@@ -84,12 +105,15 @@ To filter/query for records based on certain criteria, use the `where` method, p
 const filter = {
   category: 'whizbang',
 };
-resource.where({filter}).then(response => console.log(response.data));
+resourceClient.where({filter})
+  .then(response => console.log(response.data));
+
+// requests to widgets?filter[category]=whizbang
 ```
 
-#### related
+#### related({parent, [options]})
 
-Finally, to load records related via JSON:API relationships, use the `related` method. A nested resource URL is constructed like `categories/27/widgets`. (In the future we will look into using HATEOAS to let the server tell us the relationship URL).
+Finally, to load records related via JSON:API relationships, use the `related` method. A nested resource URL is constructed like `categories/27/widgets`.
 
 ```javascript
 const parent = {
@@ -97,7 +121,10 @@ const parent = {
   id: 27,
 };
 
-resource.related({parent}).then(response => console.log(response.data));
+resourceClient.related({parent})
+  .then(response => console.log(response.data));
+
+// requests to categories/27/widgets
 ```
 
 By default, the name of the relationship on `parent` is assumed to be the same as the name of the other model: in this case, `widgets`. In cases where the names are not the same, you can explicitly pass the relationship name:
@@ -110,16 +137,17 @@ const parent = {
 
 const relationship = 'purchased-widgets';
 
-resource
-  .related({parent, relationship})
+resourceClient.related({parent, relationship})
   .then(response => console.log(response.data));
+
+// requests to categories/27/purchased-widgets
 ```
 
 ### Writing
 
-#### create
+#### create({[attributes, relationships, options]})
 
-Creates a new record. The object passed in should follow the JSON:API object format, but the `type` can be omitted:
+Creates a new record. Either the `attributes`, `relationships`, or both can be passed. You do not need to pass in the `type` as the `ResourceClient` already knows what `type` it is for:
 
 ```js
 widgetResource.create({
@@ -130,9 +158,7 @@ widgetResource.create({
 });
 ```
 
-This isn't just limited to `attributes`; `relationships` can be passed in too.
-
-#### update
+#### update({id, [attributes, relationships, options]})
 
 Updates a record. Takes the `id` of the record and the `attributes` and/or `relationships` to update. No `type` argument is required, but if passed in it's ignored, so you can pass in a full record if you like.
 
@@ -145,28 +171,12 @@ widgetResource.update({
 });
 ```
 
-This isn't just limited to `attributes`; `relationships` can be passed in too.
-
-#### delete
+#### delete({id})
 
 Deletes the passed-in record. Only the `id` property is used, so you can pass either a full record or just the ID:
 
 ```js
 widgetResource.delete({id: 42});
-```
-
-### Options
-
-All methods that return records (so, all but `delete()`) take an optional `options` property, consisting of an object of additional options to pass. Each key/value pair in the object is translated into a query string parameter key/value pair:
-
-```js
-resource.all({
-  options: {
-    include: 'comments',
-  },
-});
-
-// requests to widgets?include=comments
 ```
 
 ## License

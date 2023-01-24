@@ -23,7 +23,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^29.0.1",
     "kind-of": "^6.0.3",
-    "prettier": "2.8.1",
+    "prettier": "2.8.3",
     "serialize-javascript": "^6.0.0",
     "set-value": "^4.0.1"
   }

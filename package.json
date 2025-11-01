@@ -24,7 +24,7 @@
     "jest": "^30.0.3",
     "kind-of": "^6.0.3",
     "prettier": "3.6.2",
-    "serialize-javascript": "^6.0.0",
+    "serialize-javascript": "^7.0.0",
     "set-value": "^4.0.1"
   }
 }

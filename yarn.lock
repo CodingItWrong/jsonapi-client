@@ -3670,9 +3670,9 @@ semver@^7.2.1, semver@^7.5.4, semver@^7.7.2:
   integrity sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==
 
 serialize-javascript@^7.0.0:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-7.0.1.tgz#deb54bc9e2a9441aebe557c3998d81c831b26816"
-  integrity sha512-ZLk39cj/i4KVhAPoLcAbqq38U6GaJchno7g+GPTn6F4HYdCT4u4p41l+DvKQHOR+TkanbSOCkrHJW1Zp60LYkw==
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-7.0.2.tgz#3939e695db5adff30b282bb36466b58e518008bb"
+  integrity sha512-Y/agDAqbUWRYFWLF5pMT9Rb8wN5ERPMbQH7oq6R+4YgFdMNO4+ELo4PjFCW3H+2CbXirPr/XUgYT+3iXJfTbZQ==
 
 set-value@^4.0.1:
   version "4.1.0"
